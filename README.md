@@ -1,5 +1,9 @@
 # vue-sort
 
+Vue 实现的响应式冒泡排序动画 [Demo](https://marskid-vue-sort.now.sh)
+
+![BubbleSort](https://res.cloudinary.com/marskid/image/upload/q_auto:good/bubblesort.gif)
+
 ## Project setup
 ```
 yarn install
