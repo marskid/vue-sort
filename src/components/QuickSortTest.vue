@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div id="TestWrapper" :class="{finish : finish}">
-      <quick-sort-bar v-for="(value, index) in list" :key="index" :height="value" :class="{swap : value == swapA || value == swapB}" />
+      <quick-sort-bar v-for="(value, index) in list" :key="index" :height="value" :class="{swap : index == indexA || index == indexB}" />
     </div>
   </div>
 </template>
@@ -38,13 +38,13 @@ export default {
       this.list = this.random()
       this.finish = false
       this.cancle = true
-      this.swapA = 0
-      this.swapB = 0
+      this.indexA = -1
+      this.indexB = -1
     },
     finish() {
       if (this.finish) {
-        this.swapA = 0
-        this.swapB = 0
+        this.indexA = -1
+        this.indexB = -1
       }
     }
   },
@@ -52,8 +52,8 @@ export default {
     return {
       list: this.random(),
       finish: false,
-      swapA: 0,
-      swapB: 0,
+      indexA: -1,
+      indexB: -1,
       cancle: false
     }
   },
@@ -70,6 +70,8 @@ export default {
       let vm = this, list = this.list, length = list.length
       let swap = (a, b, list) => {
         let temp = list[a]
+        vm.indexA = a
+        vm.indexB = b
         vm.$set(list, a, list[b])
         vm.$set(list, b, temp)
         return new Promise(resolve => setTimeout(resolve, vm.duration))
@@ -82,8 +84,6 @@ export default {
           if (this.cancle) break
 
           if (list[i] > list[j]) {
-            this.swapA = list[i]
-            this.swapB = list[j]
             await swap(i, j, list)
           }
         }
